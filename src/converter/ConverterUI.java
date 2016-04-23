@@ -58,52 +58,28 @@ public class ConverterUI extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		
+
 		textField = new JTextField("0");
-		textField.addKeyListener(new KeyListener(){
-			@Override
-			public void keyPressed(KeyEvent e) {
-			    if (e.getKeyCode()==10){
-					if(rdbtnNewRadioButton.isSelected())
-						textField_1.setText(String.valueOf(String.format("%.6f",UnitConverter.convert(Double.parseDouble(textField.getText()),(Unit)comboBox.getSelectedItem(),(Unit)comboBox_1.getSelectedItem()))));
-					else if(rdbtnRightLeft.isSelected())
-						textField.setText(String.valueOf(String.format("%.6f",UnitConverter.convert(Double.parseDouble(textField_1.getText()),(Unit)comboBox_1.getSelectedItem(),(Unit)comboBox.getSelectedItem()))));
-			    }
-
-			}
-
-			@Override
-			public void keyTyped(KeyEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void keyReleased(KeyEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
 		contentPane.add(textField);
 		textField.setColumns(10);
-		
+
 		comboBox = new JComboBox<Unit>();
 		Unit[] lengths = UnitConverter.getUnits();
 		for( Unit u : lengths) comboBox.addItem(u);
 		contentPane.add(comboBox);
-		
+
 		textPane = new JTextPane();
 		textPane.setText("=");
 		contentPane.add(textPane);
-		
+
 		textField_1 = new JTextField("0");
 		contentPane.add(textField_1);
 		textField_1.setColumns(10);
-		
+
 		final JComboBox comboBox_1 = new JComboBox<Unit>();
 		for( Unit u : lengths) comboBox_1.addItem(u);
 		contentPane.add(comboBox_1);
-		
+
 		btnConvert = new JButton("Convert");
 		btnConvert.addActionListener(new ActionListener() {
 			@Override
@@ -115,7 +91,7 @@ public class ConverterUI extends JFrame {
 			}
 		});
 		contentPane.add(btnConvert);
-		
+
 		btnClear = new JButton("Clear");
 		btnClear.addActionListener(new ActionListener() {
 			@Override
@@ -125,7 +101,7 @@ public class ConverterUI extends JFrame {
 			}
 		});
 		contentPane.add(btnClear);
-		
+
 		rdbtnNewRadioButton = new JRadioButton("Left ->Right");
 		rdbtnNewRadioButton.addActionListener(new ActionListener() {
 			@Override
@@ -138,7 +114,7 @@ public class ConverterUI extends JFrame {
 		rdbtnNewRadioButton.setSelected(true);
 		textField_1.setEditable(false);
 		contentPane.add(rdbtnNewRadioButton);
-		
+
 		rdbtnRightLeft = new JRadioButton("Right -> Left");
 		rdbtnRightLeft.addActionListener(new ActionListener() {
 			@Override
@@ -149,6 +125,50 @@ public class ConverterUI extends JFrame {
 			}
 		});
 		contentPane.add(rdbtnRightLeft);
+		
+		textField.addKeyListener( new KeyListener(){
+			@Override
+			public void keyPressed(KeyEvent e){
+				if(e.getKeyCode() == KeyEvent.VK_ENTER){
+						if(rdbtnNewRadioButton.isSelected())
+							textField_1.setText(String.valueOf(String.format("%.6f",UnitConverter.convert(Double.parseDouble(textField.getText()),(Unit)comboBox.getSelectedItem(),(Unit)comboBox_1.getSelectedItem()))));
+						else if(rdbtnRightLeft.isSelected())
+							textField.setText(String.valueOf(String.format("%.6f",UnitConverter.convert(Double.parseDouble(textField_1.getText()),(Unit)comboBox_1.getSelectedItem(),(Unit)comboBox.getSelectedItem()))));
+				}
+			}
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+
+			}
+		});
+
+		textField_1.addKeyListener( new KeyListener(){
+			@Override
+			public void keyPressed(KeyEvent e){
+				if(e.getKeyCode() == KeyEvent.VK_ENTER){
+						if(rdbtnNewRadioButton.isSelected())
+							textField.setText(String.valueOf(String.format("%.6f",UnitConverter.convert(Double.parseDouble(textField_1.getText()),(Unit)comboBox_1.getSelectedItem(),(Unit)comboBox.getSelectedItem()))));
+						else if(rdbtnRightLeft.isSelected())
+							textField_1.setText(String.valueOf(String.format("%.6f",UnitConverter.convert(Double.parseDouble(textField.getText()),(Unit)comboBox.getSelectedItem(),(Unit)comboBox_1.getSelectedItem()))));
+				}
+			}
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+
+			}
+		});
 	}
 
 }
